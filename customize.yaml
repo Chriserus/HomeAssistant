@@ -1,0 +1,5 @@
+zone.home:
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  radius: 50
+device_tracker.48_2c_a0_a1_d6_48: {}

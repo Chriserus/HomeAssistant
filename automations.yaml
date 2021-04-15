@@ -1,0 +1,120 @@
+- id: "1611870623312"
+  alias: New Automation
+  description: ""
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      no_motion_wait: "120"
+      motion_entity: binary_sensor.bathroom_motion_sensor_occupancy
+      light_target:
+        entity_id: light.bathroom_bathtub
+- id: "1611947374005"
+  alias: New Automation 2
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: light.kitchen_countertop
+      from: "off"
+      to: "on"
+  condition: []
+  action:
+    - service: tts.google_translate_say
+      data:
+        message: What a nice evening, you bloody bastard wanker
+        entity_id: all
+  mode: single
+- id: "1612302802492"
+  alias: Stupid water boiled
+  description: ""
+  trigger:
+    - type: temperature
+      platform: device
+      device_id: 8efde03f8234cf32ed436f60aee26b61
+      entity_id: sensor.ble_temperature_kettle
+      domain: sensor
+      above: 95
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+  condition: []
+  action:
+    - service: tts.google_translate_say
+      data:
+        message: Wotah boiled, pretty schewpid innit?
+        entity_id: all
+    - type: flash
+      device_id: 53ebce6dac1b9ff9150a6b67e46b9b6b
+      entity_id: light.kitchen_countertop
+      domain: light
+  mode: single
+- id: "1612734173676"
+  alias: Aqara Magic Cube
+  description: ""
+  use_blueprint:
+    path: homeassistant/aqara_cube.yaml
+    input:
+      doubletap_face_0: []
+      remote: sensor.cube_action
+      shake:
+        - type: turn_off
+          device_id: 53ebce6dac1b9ff9150a6b67e46b9b6b
+          entity_id: light.kitchen_countertop
+          domain: light
+      doubletap_face_1: []
+      slide_face_0: []
+      slide_face_1: []
+      slide_face_3:
+        - type: turn_on
+          device_id: 53ebce6dac1b9ff9150a6b67e46b9b6b
+          entity_id: light.kitchen_countertop
+          domain: light
+      fall:
+        - type: turn_on
+          device_id: 53ebce6dac1b9ff9150a6b67e46b9b6b
+          entity_id: light.kitchen_countertop
+          domain: light
+- id: "1614469567168"
+  alias: Mijia Wireless Remote Switch
+  description: ""
+  use_blueprint:
+    path: homeassistant/xiaomi_button.yaml
+    input:
+      button_sensor: sensor.button_action
+      remote_button_single_press:
+        - type: toggle
+          device_id: fe60434d65357be0b81d9d314d216022
+          entity_id: light.ceiling_light
+          domain: light
+      remote_button_double_press:
+        - device_id: cc45562d7de17090b1fa5e49510d9205
+          domain: cover
+          entity_id: cover.curtain_motor
+          type: set_position
+          position: 75
+      remote_button_triple_press:
+        - device_id: cc45562d7de17090b1fa5e49510d9205
+          domain: cover
+          entity_id: cover.curtain_motor
+          type: set_position
+          position: 100
+
+- id: "hacs_updates"
+  alias: Create a notification when there is updates pending in HACS
+  trigger:
+    platform: state
+    entity_id: sensor.hacs
+  condition:
+    - condition: template
+      value_template: "{{ states(trigger.entity_id) != 'unknown'}}"
+    - condition: template
+      value_template: "{{ (states(trigger.entity_id) | float) != 0}}"
+  action:
+    service: persistent_notification.create
+    data_template:
+      title: Updates pending in HACS
+      notification_id: hacs-update
+      message: >-
+        {% for repo in state_attr(trigger.entity_id, 'repositories') %}
+          **{{ repo.display_name }}** _{{ repo["installed_version"] }}_ -> _{{ repo["available_version"] }}_
+        {% endfor %}

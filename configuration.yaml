@@ -1,0 +1,165 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+    base_url: !secret base_url
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+zone: !include zones.yaml
+
+gigasetelements:
+  name: gigaset_elements
+  username: !secret gigaset_elements_username
+  password: !secret gigaset_elements_password
+  switches: True
+  code: !secret alarm_pin
+  code_arm_required: False
+
+device_tracker:
+  - platform: xiaomi
+    host: !secret router_host
+    password: !secret router_password
+
+google_assistant:
+  project_id: chriserusha
+  service_account: !include chriserusha-7d038b67307b.json
+  report_state: true
+  secure_devices_pin: !secret alarm_pin
+  exposed_domains:
+    - vacuum
+    - cover
+    - camera
+    - binary_sensor
+    - alarm_control_panel
+  entity_config:
+    vacuum.viomise:
+      name: ViomiSE
+    cover.curtain_motor:
+      name: Curtain
+    fan.living_room_air_purifier:
+      name: Air Purifier
+    sensor.ble_temperature_kettle:
+      name: Kettle
+    binary_sensor.left_balcony_contact:
+      name: Left balcony doors
+    binary_sensor.right_balcony_contact:
+      name: Right balcony doors
+    binary_sensor.gigaset_elements_door:
+      name: Entrance doors
+    alarm_control_panel.gigaset_elements:
+      name: Alarm
+
+http:
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+
+# media_player:
+#   - platform: androidtv
+#     name: AndroidTV
+#     host: !secret androidtv_host
+
+yeelight:
+  devices:
+    192.168.31.76:
+      name: Ceiling right
+      model: color4
+    192.168.31.254:
+      name: Ceiling left
+      model: color4
+    192.168.31.41:
+      name: Bathroom ceiling light
+      nightlight_switch_type: light
+    192.168.31.148:
+      name: Desk lamp
+# comment it out and check if it works fine
+
+vacuum:
+  - platform: viomise
+    host: !secret vacuum_host
+    token: !secret vacuum_token
+    name: ViomiSE
+
+fan:
+  - platform: xiaomi_miio_airpurifier
+    name: Living Room Air Purifier
+    host: !secret purifier_host
+    token: !secret purifier_token
+    model: zhimi.airpurifier.mb3
+
+switch:
+  - platform: template
+    switches:
+      living_room_air_purifier_child_lock:
+        friendly_name: "Child lock"
+        value_template: "{{ is_state_attr('fan.living_room_air_purifier', 'child_lock', True) }}"
+        turn_on:
+          service: xiaomi_miio_airpurifier.fan_set_child_lock_on
+          data:
+            entity_id: fan.living_room_air_purifier
+        turn_off:
+          service: xiaomi_miio_airpurifier.fan_set_child_lock_off
+          data:
+            entity_id: fan.living_room_air_purifier
+        icon_template: "mdi:lock-outline"
+
+      living_room_air_purifier_buzzer:
+        friendly_name: "Buzzer"
+        value_template: "{{ is_state_attr('fan.living_room_air_purifier', 'buzzer', True) }}"
+        turn_on:
+          service: xiaomi_miio_airpurifier.fan_set_buzzer_on
+          data:
+            entity_id: fan.living_room_air_purifier
+        turn_off:
+          service: xiaomi_miio_airpurifier.fan_set_buzzer_off
+          data:
+            entity_id: fan.living_room_air_purifier
+        icon_template: "mdi:volume-off"
+
+      living_room_air_purifier_led:
+        friendly_name: "LED"
+        value_template: "{{ is_state_attr('fan.living_room_air_purifier', 'led', True) }}"
+        turn_on:
+          service: xiaomi_miio_airpurifier.fan_set_led_on
+          data:
+            entity_id: fan.living_room_air_purifier
+        turn_off:
+          service: xiaomi_miio_airpurifier.fan_set_led_off
+          data:
+            entity_id: fan.living_room_air_purifier
+        icon_template: "mdi:lightbulb-outline"
+
+sensor:
+  - platform: template
+    sensors:
+      living_room_air_purifier_aqi:
+        friendly_name: Living Room Air Purifier Air Quality Index
+        value_template: "{{ states.fan.living_room_air_purifier.attributes.aqi }}"
+        icon_template: mdi:weather-windy
+
+      living_room_air_purifier_temperature:
+        friendly_name: Living Room Air Purifier Temperature
+        value_template: "{{ states.fan.living_room_air_purifier.attributes.temperature }}"
+        unit_of_measurement: "°C"
+
+      living_room_air_purifier_humidity:
+        friendly_name: Living Room Air Purifier Humidity
+        value_template: "{{ states.fan.living_room_air_purifier.attributes.humidity }}"
+        unit_of_measurement: "%"
+        icon_template: mdi:water-percent
+
+  - platform: mqtt
+    name: "Krzysztof Weight"
+    state_topic: "scale/Krzysztof/weight"
+    unit_of_measurement: "kg"
+    icon: mdi:scale-bathroom
+
+  - platform: mqtt
+    name: "Marta Weight"
+    state_topic: "scale/Marta/weight"
+    unit_of_measurement: "kg"
+    icon: mdi:scale-bathroom
