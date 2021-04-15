@@ -63,21 +63,6 @@ http:
 #     name: AndroidTV
 #     host: !secret androidtv_host
 
-yeelight:
-  devices:
-    192.168.31.76:
-      name: Ceiling right
-      model: color4
-    192.168.31.254:
-      name: Ceiling left
-      model: color4
-    192.168.31.41:
-      name: Bathroom ceiling light
-      nightlight_switch_type: light
-    192.168.31.148:
-      name: Desk lamp
-# comment it out and check if it works fine
-
 vacuum:
   - platform: viomise
     host: !secret vacuum_host
