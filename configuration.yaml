@@ -11,6 +11,7 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 zone: !include zones.yaml
+light: !include lights.yaml
 
 gigasetelements:
   name: gigaset_elements

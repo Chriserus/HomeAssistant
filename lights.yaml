@@ -1,0 +1,26 @@
+- platform: group
+  name: Living Room lights
+  entities:
+    - light.kitchen_fridge_light
+    - light.kitchen_countertop
+
+- platform: group
+  name: Bedroom lights
+  entities:
+    - light.bedroom_desk_lamp
+    - light.bedroom_ceiling_right
+    - light.bedroom_ceiling_left
+
+- platform: group
+  name: Bathroom lights
+  entities:
+    - light.bathroom_bathtub
+    - light.bathroom_ceiling_light
+
+- platform: group
+  name: RGB lights
+  entities:
+    - light.bathroom_bathtub
+    - light.bedroom_ceiling_right
+    - light.bedroom_ceiling_left
+    - light.kitchen_countertop
