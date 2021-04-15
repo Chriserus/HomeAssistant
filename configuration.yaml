@@ -30,6 +30,7 @@ google_assistant:
   project_id: chriserusha
   service_account: !include chriserusha-7d038b67307b.json
   report_state: true
+  expose_by_default: false
   secure_devices_pin: !secret alarm_pin
   exposed_domains:
     - vacuum
@@ -37,23 +38,38 @@ google_assistant:
     - camera
     - binary_sensor
     - alarm_control_panel
+    - light
   entity_config:
     vacuum.viomise:
       name: ViomiSE
+      room: Bedroom
     cover.curtain_motor:
       name: Curtain
+      room: Living Room
     fan.living_room_air_purifier:
       name: Air Purifier
-    sensor.ble_temperature_kettle:
+      room: Living Room
+    sensor.kitchen_kettle_temperature:
       name: Kettle
+      room: Kitchen
+    sensor.living_room_air_purifier_humidity:
+      name: Humidity
+      room: Living Room
     binary_sensor.left_balcony_contact:
-      name: Left balcony doors
+      name: Left balcony door
+      room: Balcony
     binary_sensor.right_balcony_contact:
-      name: Right balcony doors
+      name: Right balcony door
+      room: Balcony
     binary_sensor.gigaset_elements_door:
-      name: Entrance doors
+      name: Entrance door
+      room: Hallway
     alarm_control_panel.gigaset_elements:
       name: Alarm
+      room: Living Room
+    light.kitchen_fridge_light:
+      name: Fridge light
+      room: Kitchen
 
 http:
   ssl_certificate: /ssl/fullchain.pem
