@@ -24,3 +24,18 @@
     - light.bedroom_ceiling_right
     - light.bedroom_ceiling_left
     - light.kitchen_countertop
+
+- platform: group
+  name: All lights
+  entities:
+    - light.bathroom_bathtub
+    - light.bedroom_ceiling_right
+    - light.bedroom_ceiling_left
+    - light.kitchen_countertop
+    - light.bathroom_bathtub
+    - light.bathroom_ceiling_light
+    - light.bedroom_desk_lamp
+    - light.bedroom_ceiling_right
+    - light.bedroom_ceiling_left
+    - light.kitchen_fridge_light
+    - light.kitchen_countertop

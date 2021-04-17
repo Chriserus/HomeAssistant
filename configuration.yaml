@@ -12,6 +12,7 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 zone: !include zones.yaml
 light: !include lights.yaml
+google_assistant: !include google_assistant.yaml
 
 gigasetelements:
   name: gigaset_elements
@@ -25,51 +26,6 @@ device_tracker:
   - platform: xiaomi
     host: !secret router_host
     password: !secret router_password
-
-google_assistant:
-  project_id: chriserusha
-  service_account: !include chriserusha-7d038b67307b.json
-  report_state: true
-  expose_by_default: false
-  secure_devices_pin: !secret alarm_pin
-  exposed_domains:
-    - vacuum
-    - cover
-    - camera
-    - binary_sensor
-    - alarm_control_panel
-    - light
-  entity_config:
-    vacuum.viomise:
-      name: ViomiSE
-      room: Bedroom
-    cover.curtain_motor:
-      name: Curtain
-      room: Living Room
-    fan.living_room_air_purifier:
-      name: Air Purifier
-      room: Living Room
-    sensor.kitchen_kettle_temperature:
-      name: Kettle
-      room: Kitchen
-    sensor.living_room_air_purifier_humidity:
-      name: Humidity
-      room: Living Room
-    binary_sensor.left_balcony_contact:
-      name: Left balcony door
-      room: Balcony
-    binary_sensor.right_balcony_contact:
-      name: Right balcony door
-      room: Balcony
-    binary_sensor.gigaset_elements_door:
-      name: Entrance door
-      room: Hallway
-    alarm_control_panel.gigaset_elements:
-      name: Alarm
-      room: Living Room
-    light.kitchen_fridge_light:
-      name: Fridge light
-      room: Kitchen
 
 http:
   ssl_certificate: /ssl/fullchain.pem
