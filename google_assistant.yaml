@@ -10,6 +10,7 @@ exposed_domains:
   - binary_sensor
   - alarm_control_panel
   - light
+  - scene
 entity_config:
   vacuum.viomise:
     name: ViomiSE
@@ -23,8 +24,17 @@ entity_config:
   sensor.kitchen_kettle_temperature:
     name: Kettle
     room: Kitchen
-  sensor.living_room_air_purifier_humidity:
+  sensor.bathroom_weather_temperature:
+    name: Temperature
+    room: Bathroom
+  sensor.bathroom_weather_humidity:
     name: Humidity
+    room: Bathroom
+  sensor.bedroom_weather_temperature:
+    name: Temperature
+    room: Bedroom
+  sensor.living_room_air_purifier_temperature:
+    name: Temperature
     room: Living Room
   binary_sensor.left_balcony_contact:
     name: Left balcony door
@@ -38,9 +48,12 @@ entity_config:
   alarm_control_panel.gigaset_elements:
     name: Alarm
     room: Living Room
-  light.kitchen_fridge_light:
+  light.kitchen_fridge:
     name: Fridge light
     room: Kitchen
+  light.living_room_table:
+    name: Table light
+    room: Living Room
   light.kitchen_countertop:
     name: Countertop light
     room: Kitchen
@@ -57,8 +70,12 @@ entity_config:
     name: Desk light
     room: Bedroom
   light.bedroom_ceiling_left:
-    name: Ceiling light left
+    name: Ceiling light
     room: Bedroom
   light.bedroom_ceiling_right:
-    name: Ceiling light right
+    name: Ceiling light
     room: Bedroom
+  scene.movie_started:
+    name: Movie started
+  scene.movie_ended:
+    name: Movie ended

@@ -4,7 +4,7 @@ default_config:
 # Text to speech
 tts:
   - platform: google_translate
-    base_url: !secret base_url
+    base_url: !secret secure_base_url
 
 group: !include groups.yaml
 automation: !include automations.yaml
@@ -13,6 +13,14 @@ scene: !include scenes.yaml
 zone: !include zones.yaml
 light: !include lights.yaml
 google_assistant: !include google_assistant.yaml
+
+proximity:
+  chriserus_coming_home:
+    zone: home
+    devices:
+      - device_tracker.chriserus_mi9
+    tolerance: 2
+    unit_of_measurement: km
 
 gigasetelements:
   name: gigaset_elements
@@ -41,13 +49,6 @@ vacuum:
     host: !secret vacuum_host
     token: !secret vacuum_token
     name: ViomiSE
-
-fan:
-  - platform: xiaomi_miio_airpurifier
-    name: Living Room Air Purifier
-    host: !secret purifier_host
-    token: !secret purifier_token
-    model: zhimi.airpurifier.mb3
 
 switch:
   - platform: template
@@ -92,6 +93,11 @@ switch:
         icon_template: "mdi:lightbulb-outline"
 
 sensor:
+  - platform: command_line
+    name: CPU Temperature
+    command: "/bin/cat /sys/class/thermal/thermal_zone0/temp"
+    unit_of_measurement: "°C"
+    value_template: "{{ (value | int / 1000) | int }}"
   - platform: template
     sensors:
       living_room_air_purifier_aqi:
