@@ -50,6 +50,12 @@ vacuum:
     token: !secret vacuum_token
     name: ViomiSE
 
+fan:
+  - platform: xiaomi_miio_airpurifier
+    host: !secret fan_host
+    token: !secret fan_token
+    name: Fan
+
 switch:
   - platform: template
     switches:
@@ -127,3 +133,7 @@ sensor:
     state_topic: "scale/Marta/weight"
     unit_of_measurement: "kg"
     icon: mdi:scale-bathroom
+
+binary_sensor:
+  - platform: iss
+    show_on_map: true

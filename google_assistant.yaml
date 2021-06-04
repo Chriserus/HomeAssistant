@@ -21,6 +21,9 @@ entity_config:
   fan.living_room_air_purifier:
     name: Air Purifier
     room: Living Room
+  fan.fan:
+    name: Fan
+    room: Living Room
   sensor.kitchen_kettle_temperature:
     name: Kettle
     room: Kitchen
@@ -33,8 +36,14 @@ entity_config:
   sensor.bedroom_weather_temperature:
     name: Temperature
     room: Bedroom
+  sensor.bedroom_weather_humidity:
+    name: Humidity
+    room: Bedroom
   sensor.living_room_air_purifier_temperature:
     name: Temperature
+    room: Living Room
+  sensor.living_room_air_purifier_humidity:
+    name: Humidity
     room: Living Room
   binary_sensor.left_balcony_contact:
     name: Left balcony door
