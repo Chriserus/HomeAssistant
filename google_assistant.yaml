@@ -88,3 +88,7 @@ entity_config:
     name: Movie started
   scene.movie_ended:
     name: Movie ended
+  scene.turn_fan_right:
+    name: Turn fan right
+  scene.turn_fan_left:
+    name: Turn fan left
