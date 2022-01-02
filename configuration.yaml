@@ -22,6 +22,9 @@ proximity:
     tolerance: 2
     unit_of_measurement: km
 
+wake_on_lan:
+  mac: D8-BB-C1-4B-A8-00
+
 gigasetelements:
   name: gigaset_elements
   username: !secret gigaset_elements_username
@@ -35,9 +38,17 @@ device_tracker:
     host: !secret router_host
     password: !secret router_password
 
+recorder:
+  exclude:
+    entities:
+      - sensor.next_launch_countdown
+
 http:
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.30.33.0/24
 
 # media_player:
 #   - platform: androidtv
@@ -49,6 +60,22 @@ vacuum:
     host: !secret vacuum_host
     token: !secret vacuum_token
     name: ViomiSE
+
+camera:
+  - platform: xiaomi_cloud_map_extractor
+    host: !secret vacuum_host
+    token: !secret vacuum_token
+    username: !secret xiaomi_cloud_username
+    password: !secret xiaomi_cloud_password
+    draw: ["all"]
+    attributes:
+      - calibration_points
+    map_transformation:
+      trim:
+        top: 50
+        bottom: 50
+        left: 50
+        right: 50
 
 fan:
   - platform: xiaomi_miio_airpurifier
@@ -97,6 +124,9 @@ switch:
           data:
             entity_id: fan.living_room_air_purifier
         icon_template: "mdi:lightbulb-outline"
+  - platform: wake_on_lan
+    mac: D8:BB:C1:4B:A8:00
+    name: PC
 
 sensor:
   - platform: command_line

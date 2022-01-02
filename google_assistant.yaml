@@ -11,12 +11,25 @@ exposed_domains:
   - alarm_control_panel
   - light
   - scene
+  - climate
 entity_config:
+  climate.bathroom_thermostat:
+    name: Thermostat
+    room: Bathroom
+  climate.bedroom_thermostat:
+    name: Thermostat
+    room: Bedroom
+  climate.living_room_thermostat:
+    name: Thermostat
+    room: Living Room
   vacuum.viomise:
     name: ViomiSE
-    room: Bedroom
+    room: Living Room
   cover.curtain_motor:
     name: Curtain
+    room: Living Room
+  switch.pc:
+    name: PC
     room: Living Room
   fan.living_room_air_purifier:
     name: Air Purifier
@@ -27,21 +40,21 @@ entity_config:
   sensor.kitchen_kettle_temperature:
     name: Kettle
     room: Kitchen
-  sensor.bathroom_weather_temperature:
-    name: Temperature
-    room: Bathroom
+  # sensor.bathroom_weather_temperature:
+  #   name: Temperature
+  #   room: Bathroom
   sensor.bathroom_weather_humidity:
     name: Humidity
     room: Bathroom
-  sensor.bedroom_weather_temperature:
-    name: Temperature
-    room: Bedroom
+  # sensor.bedroom_weather_temperature:
+  #   name: Temperature
+  #   room: Bedroom
   sensor.bedroom_weather_humidity:
     name: Humidity
     room: Bedroom
-  sensor.living_room_air_purifier_temperature:
-    name: Temperature
-    room: Living Room
+  # sensor.living_room_air_purifier_temperature:
+  #   name: Temperature
+  #   room: Living Room
   sensor.living_room_air_purifier_humidity:
     name: Humidity
     room: Living Room
@@ -65,7 +78,7 @@ entity_config:
     room: Living Room
   light.kitchen_countertop:
     name: Countertop light
-    room: Kitchen
+    room: Living Room
   light.bathroom_bathtub:
     name: Bathtub light
     room: Bathroom
@@ -79,10 +92,10 @@ entity_config:
     name: Desk light
     room: Bedroom
   light.bedroom_ceiling_left:
-    name: Ceiling light
+    name: Left ceiling light
     room: Bedroom
   light.bedroom_ceiling_right:
-    name: Ceiling light
+    name: Right ceiling light
     room: Bedroom
   scene.movie_started:
     name: Movie started
