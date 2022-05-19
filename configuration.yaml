@@ -70,60 +70,9 @@ camera:
     draw: ["all"]
     attributes:
       - calibration_points
-    map_transformation:
-      trim:
-        top: 50
-        bottom: 50
-        left: 50
-        right: 50
-
-fan:
-  - platform: xiaomi_miio_airpurifier
-    host: !secret fan_host
-    token: !secret fan_token
-    name: Fan
+      - rooms
 
 switch:
-  - platform: template
-    switches:
-      living_room_air_purifier_child_lock:
-        friendly_name: "Child lock"
-        value_template: "{{ is_state_attr('fan.living_room_air_purifier', 'child_lock', True) }}"
-        turn_on:
-          service: xiaomi_miio_airpurifier.fan_set_child_lock_on
-          data:
-            entity_id: fan.living_room_air_purifier
-        turn_off:
-          service: xiaomi_miio_airpurifier.fan_set_child_lock_off
-          data:
-            entity_id: fan.living_room_air_purifier
-        icon_template: "mdi:lock-outline"
-
-      living_room_air_purifier_buzzer:
-        friendly_name: "Buzzer"
-        value_template: "{{ is_state_attr('fan.living_room_air_purifier', 'buzzer', True) }}"
-        turn_on:
-          service: xiaomi_miio_airpurifier.fan_set_buzzer_on
-          data:
-            entity_id: fan.living_room_air_purifier
-        turn_off:
-          service: xiaomi_miio_airpurifier.fan_set_buzzer_off
-          data:
-            entity_id: fan.living_room_air_purifier
-        icon_template: "mdi:volume-off"
-
-      living_room_air_purifier_led:
-        friendly_name: "LED"
-        value_template: "{{ is_state_attr('fan.living_room_air_purifier', 'led', True) }}"
-        turn_on:
-          service: xiaomi_miio_airpurifier.fan_set_led_on
-          data:
-            entity_id: fan.living_room_air_purifier
-        turn_off:
-          service: xiaomi_miio_airpurifier.fan_set_led_off
-          data:
-            entity_id: fan.living_room_air_purifier
-        icon_template: "mdi:lightbulb-outline"
   - platform: wake_on_lan
     mac: D8:BB:C1:4B:A8:00
     name: PC
@@ -151,7 +100,6 @@ sensor:
         value_template: "{{ states.fan.living_room_air_purifier.attributes.humidity }}"
         unit_of_measurement: "%"
         icon_template: mdi:water-percent
-
   - platform: mqtt
     name: "Krzysztof Weight"
     state_topic: "scale/Krzysztof/weight"

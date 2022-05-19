@@ -1,0 +1,60 @@
+vacuum_bathroom:
+  alias: Vacuum Bathroom
+  sequence:
+  - service: vacuum.send_command
+    data:
+      command: set_mode_withroom
+      params:
+      - 0
+      - 1
+      - 1
+      - 10
+    target:
+      entity_id: vacuum.viomise
+  mode: single
+  icon: mdi:broom
+vacuum_living_room:
+  alias: Vacuum Living Room
+  sequence:
+  - service: vacuum.send_command
+    data:
+      command: set_mode_withroom
+      params:
+      - 0
+      - 1
+      - 1
+      - 13
+    target:
+      entity_id: vacuum.viomise
+  mode: single
+  icon: mdi:broom
+vacuum_hallway:
+  alias: Vacuum Hallway
+  sequence:
+  - service: vacuum.send_command
+    data:
+      command: set_mode_withroom
+      params:
+      - 0
+      - 1
+      - 1
+      - 11
+    target:
+      entity_id: vacuum.viomise
+  mode: single
+  icon: mdi:broom
+vacuum_bedroom:
+  alias: Vacuum Bedroom
+  sequence:
+  - service: vacuum.send_command
+    data:
+      command: set_mode_withroom
+      params:
+      - 0
+      - 1
+      - 1
+      - 12
+    target:
+      entity_id: vacuum.viomise
+  mode: single
+  icon: mdi:broom

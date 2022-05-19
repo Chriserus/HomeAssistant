@@ -23,7 +23,7 @@ entity_config:
     name: Thermostat
     room: Living Room
   vacuum.viomise:
-    name: ViomiSE
+    name: Viomi SE
     room: Living Room
   cover.curtain_motor:
     name: Curtain
@@ -105,3 +105,11 @@ entity_config:
     name: Turn fan right
   scene.turn_fan_left:
     name: Turn fan left
+  script.vacuum_bedroom:
+    name: Vacuum Bedroom
+  script.vacuum_living_room:
+    name: Vacuum Living Room
+  script.vacuum_hallway:
+    name: Vacuum Hallway
+  script.vacuum_bathroom:
+    name: Vacuum Bathroom
