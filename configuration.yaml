@@ -78,6 +78,15 @@ switch:
     name: PC
 
 sensor:
+  - platform: random
+    name: Random Sensor 1
+    maximum: 255
+  - platform: random
+    name: Random Sensor 2
+    maximum: 255
+  - platform: random
+    name: Random Sensor 3
+    maximum: 255
   - platform: command_line
     name: CPU Temperature
     command: "/bin/cat /sys/class/thermal/thermal_zone0/temp"
@@ -115,3 +124,10 @@ sensor:
 binary_sensor:
   - platform: iss
     show_on_map: true
+
+history:
+  exclude:
+    entities:
+      - sensor.random_sensor_1
+      - sensor.random_sensor_2
+      - sensor.random_sensor_3
