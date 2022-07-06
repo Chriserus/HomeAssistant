@@ -1,0 +1,91 @@
+blueprint:
+  name: Motion-activated Random Light
+  description: Turn on a random light when motion is detected.
+  domain: automation
+  source_url: https://github.com/home-assistant/core/blob/dev/homeassistant/components/automation/blueprints/motion_light.yaml
+  input:
+    motion_entity:
+      name: Motion Sensor
+      selector:
+        entity:
+          domain: binary_sensor
+          device_class: motion
+    random_light_target:
+      name: Random color light
+      selector:
+        target:
+          entity:
+            domain: light
+    light_target:
+      name: Light
+      selector:
+        target:
+          entity:
+            domain: light
+    random_value_generator_1:
+      name: Random number generator 1
+      selector:
+        entity:
+          domain: sensor
+    random_value_generator_2:
+      name: Random number generator 2
+      selector:
+        entity:
+          domain: sensor
+    random_value_generator_3:
+      name: Random number generator 3
+      selector:
+        entity:
+          domain: sensor
+    no_motion_wait:
+      name: Wait time
+      description: Time to leave the light on after last motion is detected.
+      default: 120
+      selector:
+        number:
+          min: 0
+          max: 3600
+          unit_of_measurement: seconds
+
+# If motion is detected within the delay,
+# we restart the script.
+mode: restart
+max_exceeded: silent
+
+variables:
+  random_1: !input random_value_generator_1
+  random_2: !input random_value_generator_2
+  random_3: !input random_value_generator_3
+
+trigger:
+  platform: state
+  entity_id: !input motion_entity
+  from: "off"
+  to: "on"
+
+action:
+  - alias: "Turn on standard light"
+    service: light.turn_on
+    target: !input light_target
+  - alias: "Turn on random light color"
+    service: light.turn_on
+    target: !input random_light_target
+    data:
+      rgb_color:
+        - "{{states(random_1) | int}}"
+        - "{{states(random_2) | int}}"
+        - "{{states(random_3) | int}}"
+  - alias: "Wait until there is no motion from device"
+    wait_for_trigger:
+      platform: state
+      entity_id: !input motion_entity
+      from: "on"
+      to: "off"
+  - alias: "Wait the number of seconds that has been set"
+    delay: !input no_motion_wait
+  - alias: "Turn off the light"
+    service: light.turn_off
+    target: !input light_target
+  - alias: "Turn off random light color"
+    service: light.turn_off
+    target: !input random_light_target
