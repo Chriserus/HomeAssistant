@@ -58,3 +58,45 @@ vacuum_bedroom:
       entity_id: vacuum.viomise
   mode: single
   icon: mdi:broom
+turn_fan_left:
+  alias: Turn fan left
+  sequence:
+  - service: fan.set_direction
+    data:
+      direction: reverse
+    target:
+      entity_id: fan.fan
+  mode: single
+  icon: mdi:fan
+turn_fan_right:
+  alias: Turn fan right
+  sequence:
+  - service: fan.set_direction
+    data:
+      direction: forward
+    target:
+      entity_id: fan.fan
+  mode: single
+  icon: mdi:fan
+oscillate_fan:
+  alias: Oscillate fan
+  sequence:
+  - if:
+    - condition: state
+      entity_id: fan.fan
+      state: 'True'
+      attribute: Oscillating
+    then:
+    - service: fan.oscillate
+      data:
+        oscillating: false
+      target:
+        entity_id: fan.fan
+    else:
+    - service: fan.oscillate
+      data:
+        oscillating: true
+      target:
+        entity_id: fan.fan
+  mode: single
+  icon: mdi:fan
