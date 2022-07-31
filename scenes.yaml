@@ -1,8 +1,0 @@
-- name: Movie started
-  entities: {}
-- name: Movie ended
-  entities: {}
-- name: Turn fan right
-  entities: {}
-- name: Turn fan left
-  entities: {}
