@@ -115,3 +115,7 @@ entity_config:
     name: Vacuum Hallway
   script.vacuum_bathroom:
     name: Vacuum Bathroom
+  script.good_morning:
+    name: Good morning
+  script.good_night:
+    name: Good night
