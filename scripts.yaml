@@ -100,3 +100,29 @@ oscillate_fan:
         entity_id: fan.fan
   mode: single
   icon: mdi:fan
+good_morning:
+  alias: Good morning
+  sequence:
+  - event: GOOD_MORNING
+    event_data: {}
+  mode: single
+  icon: mdi:weather-sunset-up
+good_night:
+  alias: Good night
+  sequence:
+  - parallel:
+    - service: light.turn_off
+      data:
+        transition: 10
+      target:
+        entity_id: all
+    - type: turn_off
+      device_id: 9712a2247d23beddc88c31fe532ab6ac
+      entity_id: fan.fan
+      domain: fan
+    - type: turn_off
+      device_id: 85437699dcefd255737e41500888d2ef
+      entity_id: fan.living_room_air_purifier
+      domain: fan
+  mode: single
+  icon: mdi:weather-sunset-down
