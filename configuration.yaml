@@ -91,21 +91,18 @@ sensor:
         value_template: "{{ states.fan.living_room_air_purifier.attributes.humidity }}"
         unit_of_measurement: "%"
         icon_template: mdi:water-percent
-  - platform: mqtt
-    name: "Krzysztof Weight"
+
+mqtt:
+  sensor:
+  - name: "Krzysztof Weight"
     state_topic: "scale/Krzysztof/weight"
     unit_of_measurement: "kg"
     icon: mdi:scale-bathroom
 
-  - platform: mqtt
-    name: "Marta Weight"
+  - name: "Marta Weight"
     state_topic: "scale/Marta/weight"
     unit_of_measurement: "kg"
     icon: mdi:scale-bathroom
-
-binary_sensor:
-  - platform: iss
-    show_on_map: true
 
 history:
   exclude:
