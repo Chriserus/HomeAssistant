@@ -160,7 +160,7 @@
     offset: 0
   condition:
   - condition: zone
-    entity_id: device_tracker.chriserus_mi9
+    entity_id: person.krzysztof_borowiecki
     zone: zone.home
   action:
   - service: light.turn_on
@@ -214,6 +214,10 @@
     attribute: contact
   - platform: event
     event_type: GOOD_MORNING
+  - platform: zone
+    entity_id: person.krzysztof_borowiecki
+    zone: zone.home
+    event: enter
   condition: []
   action:
   - if:
@@ -274,7 +278,7 @@
       domain: fan
   - delay:
       hours: 0
-      minutes: 10
+      minutes: 5
       seconds: 0
       milliseconds: 0
   - condition: not
@@ -384,8 +388,8 @@
     - condition: sun
       after: sunset
   action:
-  - type: turn_on
-    device_id: 53ebce6dac1b9ff9150a6b67e46b9b6b
-    entity_id: light.kitchen_countertop
-    domain: light
+    - type: turn_on
+      device_id: 53ebce6dac1b9ff9150a6b67e46b9b6b
+      entity_id: light.kitchen_countertop
+      domain: light
   mode: single
