@@ -1,18 +1,12 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
-# Text to speech
-tts:
-  - platform: google_translate
-    base_url: !secret secure_base_url
-
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 zone: !include zones.yaml
 light: !include lights.yaml
-google_assistant: !include google_assistant.yaml
 
 proximity:
   chriserus_coming_home:
@@ -42,18 +36,6 @@ recorder:
   exclude:
     entities:
       - sensor.next_launch_countdown
-
-http:
-  ssl_certificate: /ssl/fullchain.pem
-  ssl_key: /ssl/privkey.pem
-  use_x_forwarded_for: true
-  trusted_proxies:
-    - 172.30.33.0/24
-
-# media_player:
-#   - platform: androidtv
-#     name: AndroidTV
-#     host: !secret androidtv_host
 
 vacuum:
   - platform: viomise
