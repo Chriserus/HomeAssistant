@@ -59,6 +59,13 @@ switch:
     mac: D8:BB:C1:4B:A8:00
     name: PC
 
+command_line:
+  - sensor:
+      name: CPU Temperature
+      command: "/bin/cat /sys/class/thermal/thermal_zone0/temp"
+      unit_of_measurement: "°C"
+      value_template: "{{ (value | int / 1000) | int }}"
+
 sensor:
   - platform: random
     name: Random Sensor 1
@@ -69,11 +76,6 @@ sensor:
   - platform: random
     name: Random Sensor 3
     maximum: 255
-  - platform: command_line
-    name: CPU Temperature
-    command: "/bin/cat /sys/class/thermal/thermal_zone0/temp"
-    unit_of_measurement: "°C"
-    value_template: "{{ (value | int / 1000) | int }}"
   - platform: template
     sensors:
       living_room_air_purifier_aqi:
@@ -94,15 +96,15 @@ sensor:
 
 mqtt:
   sensor:
-  - name: "Krzysztof Weight"
-    state_topic: "scale/Krzysztof/weight"
-    unit_of_measurement: "kg"
-    icon: mdi:scale-bathroom
+    - name: "Krzysztof Weight"
+      state_topic: "scale/Krzysztof/weight"
+      unit_of_measurement: "kg"
+      icon: mdi:scale-bathroom
 
-  - name: "Marta Weight"
-    state_topic: "scale/Marta/weight"
-    unit_of_measurement: "kg"
-    icon: mdi:scale-bathroom
+    - name: "Marta Weight"
+      state_topic: "scale/Marta/weight"
+      unit_of_measurement: "kg"
+      icon: mdi:scale-bathroom
 
 history:
   exclude:
